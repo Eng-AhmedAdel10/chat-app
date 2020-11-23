@@ -1,0 +1,70 @@
+<!-- ***************************************setup*********************************************** -->
+<%- include("parts/header") %>
+<%- include("parts/navbar") %>
+
+<!-- **********************************container************************************ -->
+<div class="container container-chat" id="content">
+    <div class="row">
+        <input type="hidden" id="chatId" value="<%= chatId %>">
+        <input type="hidden" id="myUserName" value="<%= myUsername %>">
+        <input type="hidden" id="myImage" value="<%= myImage %>">
+
+<!-- **********************************chat info************************************ -->
+        <div class="col col-3">
+            <div class="card card-chat-Friend-Data" >
+                <img src="/<%= friendData.image%>" class="card-img-top" alt="image">
+                <div class="card-body">
+                    
+                  <h3 class="card-title"><%= friendData.username%></h3>
+                  <a href="/profile/<%= friendData._id%>" class="btn btn-primary view-profile-btn">
+                    View Profile
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                </a>
+                </div>
+              </div>
+        </div>
+
+<!-- **********************************chat************************************ -->
+        <div class="col col-12 col-md-9">
+            <div class="content-chat">
+                <div class="chat-friend-data d-none">
+                    <div class="friend-data">
+                    <img src="/<%= friendData.image%>">
+                    <h3><%= friendData.username%></h3>
+                    </div>
+                    <a href="/profile/<%= friendData._id%>" class="btn btn-primary view-profile-btn">
+                        View Profile
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                    </a>
+                </div>
+                <div class="content-chat-msg" id="content-chat-msg">
+                <% for(message of messages) { %>
+                    <% if(message.sender == myId) { %>
+                        <div class="content-msg">
+                            <span class="myMsg"><%= message.content%></span>
+                        </div>
+                    <% } else { %>
+                        <div class="content-msg">
+                        <span class="friendMsg"><%= message.content%></span>
+                        </div>
+                        <% } %>
+                <% } %>
+            </div>
+                <form>
+            <input type="text" class="form-control" placeholder="Type a message" id="message">
+            <input type="button" value="Send" class="btn btn-primary" id="send">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- **********************************setup************************************ -->
+<%- include("parts/search") %>
+<%- include("parts/scripts") %>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/sockets/init.js"></script>
+<script src="/js/sockets/chat.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!-- **********************************setup************************************ -->
+<%- include("parts/header") %>
+<%- include("parts/navbar") %>
+
+<!-- **********************************container************************************ -->
+<div class="container">
+    <% if(friends.friends.length == 0) { %>
+        <div class="alert alert-danger text-center mt-3">No Friends To Show</div>
+    <% } else { %>
+        <h2 class="bg-success text-center py-3 mb-4 text-white friends-header">Friends
+            <a class="btn btn-primary" href="/creategroup">Create Group</a>
+        </h2>
+
+<!-- **********************************friends************************************ -->
+        <div class="row">
+        <% for(friend of friends.friends) { %>
+        <div class="col col-12 col-md-6 col-lg-4">
+        <div class="card mb-3 cardChat">
+            <div class="row no-gutters">
+            <div class="col-4">
+                <img src="<%= friend.image %>" class="card-img" alt="img">
+            </div>
+            <div class="col-8">
+                <div class="card-body">
+                <a href="/profile/<%= friend.id %>" class="name"><%= friend.name %></a>
+                <a href="/chat/<%= friend.chat %>" class="btn btn-success">Chat</a>
+                
+                <form action="/friend/delete" method="POST" class="d-inline">
+                    <input  type="hidden" name="myId" value="<%= myId %>">
+                    <input  type="hidden" name="friendUserId" value="<%= friend.id %>">
+                <input type="submit" value="unfriend" class="btn btn-danger">
+                </form>
+            </div>
+            </div>
+            </div>
+            </div>
+        </div>
+        <% } %>
+    </div>
+    </div>
+    <% } %>
+
+<!-- **********************************setup************************************ -->
+<%- include("parts/search") %>
+<%- include("parts/scripts") %>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/sockets/init.js"></script>
+</body>
+</html>
+    

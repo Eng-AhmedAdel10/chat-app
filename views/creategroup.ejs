@@ -1,0 +1,45 @@
+<!-- **********************************setup************************************ -->
+<%- include("parts/header") %>
+<%- include("parts/navbar") %>
+
+<!-- **********************************container************************************ -->
+<div class="container" id="content">
+    <h2 class="bg-success text-center py-3 mb-4 text-white">Create Group</h2>
+    <div class="row">
+
+<!-- **********************************form to create group************************************ -->
+    <div class="col col-md-8 mx-auto">
+    <form action="/group" method="POST" enctype="multipart/form-data">
+    <input type="text" name="name" required class="form-control mb-3" placeholder="Group Name">
+    <input type="file" name="image" required class="form-control mb-3" placeholder="choose Image">
+    <div class="check-friends">
+        <% if(friends.friends.length == 0) { %>
+            <span>No Friends To Show</span>
+        <% } else {%>
+    <% for(friend of friends.friends) { %>
+        <div class="form-check">
+            <input class="form-check-input" name="friends" type="checkbox" value="<%= friend.id %>" id="<%= friend.id %>">
+            <label class="form-check-label text-capitalize" for="<%= friend.id %>">
+                <img src="<%= friend.image %>" alt="img">
+              <%= friend.name %>
+            </label>
+          </div>    
+    <% } } %>
+    </div>
+    <div class="text-center">
+    <input type="submit" class="btn btn-success mt-3" value="Create Group">
+    </div>
+    </form>
+</div>
+</div>
+</div>
+
+<!-- **********************************setup************************************ -->
+<%- include("parts/search") %>
+<%- include("parts/scripts") %>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/sockets/init.js"></script>
+
+
+</body>
+</html>

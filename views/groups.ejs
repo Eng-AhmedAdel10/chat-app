@@ -1,0 +1,42 @@
+<!-- **********************************setup************************************ -->
+<%- include("parts/header") %>
+<%- include("parts/navbar") %>
+
+<!-- **********************************container************************************ -->
+<div class="container">
+    <% if(groups.length == 0) { %>
+        <div class="alert alert-danger text-center mt-3">No Groups To Show</div>
+    <% } else { %>
+        <h2 class="bg-success text-center py-3 mb-4 text-white">Groups</h2>
+
+<!-- **********************************groups************************************ -->
+        <div class="row">
+        <% for(group of groups) { %>
+        <div class="col col-12 col-md-6 col-lg-4">
+        <div class="card mb-3 cardChat">
+            <div class="row no-gutters">
+            <div class="col-5">
+                <img src="<%= group.image %>" class="card-img" alt="img">
+            </div>
+            <div class="col-7">
+                <div class="card-body">
+                <h3 class="name"><%= group.name %></h3>
+                <a href="/chatgroup/<%= group._id %>" class="btn btn-success" id="chatgroup">Chat</a>
+            </div>
+            </div>
+            </div>
+            </div>
+        </div>
+        <% } %>
+    </div>  
+    </div>
+    <% } %>
+
+<!-- **********************************setup************************************ -->
+<%- include("parts/search") %>
+<%- include("parts/scripts") %>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/sockets/init.js"></script>
+</body>
+</html>
+    

@@ -1,0 +1,63 @@
+<!-- ***********************************setup***************************************** -->
+<%- include("parts/header") %>
+<%- include("parts/navbar") %>
+
+<!-- ***********************************container***************************************** -->
+<div class="container">
+
+<!-- **********************************profile content************************************ -->
+    <div class="clip-profile">
+        <div class="img-profile">
+        <img src="/<%= userImage %>" alt="img">
+        <% if(userId == myId) { %>
+        <label for="change-img">
+        <i class="fa fa-camera" aria-hidden="true"></i>
+        </label>
+        </div>
+        
+        <form action="/profile/updateImg" method="post" enctype="multipart/form-data" class="updateImg-form">
+        <input type="file" name="profileImg" id="change-img">
+        <input type="submit" value="Update" class="btn btn-success">
+        </form>
+        <% } %>
+        <h2><%= username %></h2>
+
+        <% if(! isOwner) { %>
+            <form method="POST" id="form-profile">
+                <input id="myId" type="hidden" name="myId" value="<%= myId %>">
+                <input id="myUsername" type="hidden" name="myUsername" value="<%= myUsername %>">
+                <input id="myImage" type="hidden" name="myImage" value="<%= myImage %>">
+                <input id="friendUserId" type="hidden" name="friendUserId" value="<%= userId %>">
+                <input id="friendUsername" type="hidden" name="friendUsername" value="<%= username %>">
+                <input id="friendUserImage" type="hidden" name="friendUserImage" value="<%= userImage %>">
+                <% if (isFriends) { %>
+                    <input type="submit" value="unfriend" class="btn btn-danger" formaction="/friend/delete">
+                <% }  else if (isFriendSent) { %>
+                    <input type="submit" value="Cancel Request" class="btn btn-danger" formaction="/friend/cancel">
+                <% } else if (isFriendreceived) { %>
+                    <input type="submit" value="Accept" class="btn btn-success" formaction="/friend/accept">
+                    <input type="submit" value="Reject" class="btn btn-danger" formaction="/friend/reject">
+                <% } else { %>
+                    <input type="submit" id="addFriendBtn" value="Add" class="btn btn-primary" formaction="/friend/add">
+                <% } %>
+            </form>
+        <% } %>
+    </div>
+</div>
+
+
+
+
+
+
+<!-- **********************************setup************************************ -->
+<%- include("parts/search") %>
+<%- include("parts/scripts") %>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/sockets/init.js"></script>
+<% if( !isOwner && !isFriends && !isFriendSent && !isFriendreceived) { %>
+<script src="/js/sockets/friend.js"></script>
+<% } %>
+<script src="/js/updateImg.js"></script>
+</body>
+</html>

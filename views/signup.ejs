@@ -1,0 +1,36 @@
+<!-- ***********************************setup***************************************** -->
+<%- include("parts/header") %>
+<%- include("parts/navbar") %>
+
+<!-- ***********************************container***************************************** -->
+<div class="container">
+
+<!-- ***********************************heading***************************************** -->
+    <h2 class="text-center my-4">Signup</h2>
+
+<!-- ***********************************form***************************************** -->
+<form action="/signup" method="POST">
+    <input type="text" name="username" class="form-control mb-3" placeholder="Username">
+    <input type="email" name="email" class="form-control mb-3" placeholder="Email">
+    <input type="password" name="password" class="form-control mb-3" placeholder="Password">
+    <input type="password" name="confirmPassword" class="form-control mb-3" placeholder="Confirm Password">
+    <div class="text-center">
+        <input type="submit" value="Signup" class="btn btn-primary">
+    </div>
+</form>
+
+<!-- ***********************************alert error***************************************** -->
+<% if(error.length > 0) { %>
+    <% for(err of error) { %>
+    <div class="alert alert-danger mt-3 text-capitalize text-center"><%= err%></div>
+    <% } %>
+    <% } %>
+</div>
+
+
+
+
+<!-- **********************************setup************************************ -->
+<%- include("parts/scripts") %>
+</body>
+</html>

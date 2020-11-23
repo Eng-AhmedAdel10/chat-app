@@ -1,0 +1,95 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">43B-Chat</a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+<!-- ***********************************Home groups friends signup signin**************************** -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <% if(myId) { %>
+          <input type="hidden" name="myId" id="myId" value="<%= myId %>">
+          <% if(Title == "") { %>
+            <li class="nav-item ">
+              <a class="nav-link" href="/">Home </a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" href="/groups">Groups</a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" href="/friends">Friends</a>
+            </li>
+            <% } else { %>
+        <li class="nav-item <%= (Title == 'Home') ? 'active' : '' %>">
+          <a class="nav-link" href="/">Home </a>
+        </li>
+        <li class="nav-item <%= (Title == 'Groups') ? 'active' : '' %>">
+          <a class="nav-link" href="/groups">Groups</a>
+        </li>
+        <li class="nav-item <%= (Title == 'Friends') ? 'active' : '' %>">
+          <a class="nav-link" href="/friends">Friends</a>
+        </li>
+        <% } %>
+        <% } %>
+        <% if(! myId) { %>
+        <li class="nav-item <%= (Title == 'Signup') ? 'active' : '' %>">
+          <a class="nav-link" href="/signup">Signup</a>
+        </li>
+        <li class="nav-item <%= (Title == 'Login') ? 'active' : '' %>">
+          <a class="nav-link" href="/signin">Login</a>
+        </li>
+        <% } %>
+      </ul>
+
+
+
+    
+
+    
+
+
+<div class="friend-req-logout">
+
+<!-- ***********************************friend requests************************************* -->
+      <% if(friendRequests) { %>
+      <div class="dropdown ">
+        <button class="btn btn-dark dropdown-toggle" type="button" id="friendRequests" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Friend Requests <span class="badge badge-light"><%= friendRequests.length %></span>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="friendRequests" id="friendRequestsMenu">
+          <% if (friendRequests.length == 0) { %>
+            <span class="text-center disabled d-block">No Friend Requests</span>
+          <% } else { %>
+          <% for(friendRequests of friendRequests) { %>
+          <a class="dropdown-item" href="/profile/<%= friendRequests.id %>">
+            <i class="fa fa-user-plus" aria-hidden="true"></i> <%= friendRequests.name %></a>
+          <% } %>
+          <% } %>
+        </div>
+      </div>
+      <% } %>
+
+
+
+
+    
+  
+
+  <!-- ***********************************logout************************************* -->
+<% if(myId) { %>
+  <form action="/logout" method="POST" class="logout-form">
+    <input type="submit" value="logout" class="btn btn-warning">
+  </form>
+  
+</div>
+
+  <!-- ***********************************Search************************************* -->
+  <form class="form-inline my-lg-0 search-form">
+    <input class="form-control mr-sm-2" type="search" name="search" id="searchInput" placeholder="Search" aria-label="Search">
+    <button class="btn btn-success my-2 my-sm-0" type="button" id="searchBtn">Search</button>
+  </form>
+  <% } %>
+
+</div>
+</nav>
